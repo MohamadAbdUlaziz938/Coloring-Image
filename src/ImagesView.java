@@ -30,7 +30,7 @@ public class ImagesView extends JPanel {
 
     private void initImagesView() {
         imagesView.setBackground(Color.WHITE);
-        imagesView.setPreferredSize(new Dimension(800, 400));
+        imagesView.setPreferredSize(new Dimension(900, 400));
 
     }
 
@@ -69,7 +69,7 @@ public class ImagesView extends JPanel {
 
     private void initImagePanel() {
         System.out.println(getClass().getResource("").getPath());
-        String defUrl=getClass().getResource("default-image.jpg").getPath();
+        String defUrl = getClass().getResource("default-image.jpg").getPath();
         coloredImagePanel.setPreferredSize(new Dimension(100, 100));
         coloredImagePanel.setMaximumSize(greyImagePanel.getPreferredSize());
         coloredImagePanel.setBackground(Color.WHITE);

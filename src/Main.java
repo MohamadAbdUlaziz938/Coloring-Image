@@ -1,10 +1,7 @@
 
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import javax.swing.*;
-import javax.swing.border.*;
 
 class Main {
     private static void createAndShowUI() {
