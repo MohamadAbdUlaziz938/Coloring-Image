@@ -1,21 +1,28 @@
+import views.ImagesView;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class BaseGui extends JPanel {
 
-    ImagesView imagesView;
+    public ImagesView imagesView;
     Footer footer;
+    JPanel borderLayout;
 
     public BaseGui() {
-        imagesView = new ImagesView();
+
+        imagesView = new ImagesView(getClass().getResource("default-image.jpg").getPath());
         footer = new Footer();
-        BorderLayout borderLayout = new BorderLayout(1, 1);
+        AppBar appBar = new AppBar(imagesView);
 
-        setLayout(borderLayout);
+        borderLayout = new JPanel();
+        borderLayout.setPreferredSize(new Dimension(900, 600));
+        borderLayout.setBackground(Color.black);
 
-        add(new MainTitle().panel, BorderLayout.NORTH);
-        add(imagesView.imagesView, BorderLayout.CENTER);
 
-        add(footer.panel, BorderLayout.SOUTH);
+        borderLayout.add(appBar.panel);
+        borderLayout.add(imagesView.imagesView);
+
+        borderLayout.add(footer.panel);
     }
 }

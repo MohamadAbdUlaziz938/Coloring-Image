@@ -1,3 +1,6 @@
+package views;
+
+import Utils.ResizeImage;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -9,15 +12,14 @@ import javax.swing.JPanel;
 
 public class ImagesView extends JPanel {
 
-    JPanel imagesView;
-    //JPanel greyImagePanel;
-    //JPanel coloredImagePanel;
-    JLabel greyImagePanel = new JLabel();
+    public  JPanel imagesView;
+    String defUrl;
+    public  JLabel greyImagePanel = new JLabel();
     JLabel coloredImagePanel = new JLabel();
 
-    public ImagesView() {
-        //this.coloredImagePanel = new JPanel(new GridLayout(1, 1, 1, 10));
-        //  this.greyImagePanel = new JPanel(new GridLayout(1, 1, 1, 10));
+    public ImagesView(String defUrl) {
+
+        this.defUrl=defUrl;
         this.imagesView = new JPanel(new GridLayout(1, 2, 100, 10));
         greyImagePanel.setBounds(10, 10, 365, 290);
         coloredImagePanel.setBounds(10, 10, 365, 290);
@@ -29,7 +31,7 @@ public class ImagesView extends JPanel {
     }
 
     private void initImagesView() {
-        imagesView.setBackground(Color.WHITE);
+        imagesView.setBackground(Color.black);
         imagesView.setPreferredSize(new Dimension(900, 400));
 
     }
@@ -68,8 +70,8 @@ public class ImagesView extends JPanel {
     }
 
     private void initImagePanel() {
-        System.out.println(getClass().getResource("").getPath());
-        String defUrl = getClass().getResource("default-image.jpg").getPath();
+
+
         coloredImagePanel.setPreferredSize(new Dimension(100, 100));
         coloredImagePanel.setMaximumSize(greyImagePanel.getPreferredSize());
         coloredImagePanel.setBackground(Color.WHITE);
