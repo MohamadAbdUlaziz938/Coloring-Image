@@ -1,3 +1,4 @@
+import Utils.Hex;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -21,11 +22,11 @@ import javax.swing.border.TitledBorder;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 /**
- *
  * @author m.abdulaziz
  */
-public class Footer extends JPanel implements ActionListener{
+public class Footer extends JPanel implements ActionListener {
 
     JComboBox<String> combo;
     JPanel panel;
@@ -67,7 +68,7 @@ public class Footer extends JPanel implements ActionListener{
 
         combo.setFont(Font.decode("Dialog"));
         for (int i = 0; i < colors.length; i++) {
-            model.add(Utils.coloToHex(colors[i]));
+            model.add(Hex.coloToHex(colors[i]));
             map.put(model.get(i), colors[i]);
             combo.addItem(model.get(i));
 

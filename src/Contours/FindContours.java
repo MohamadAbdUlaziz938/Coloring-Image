@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.opencv.core.Core;
+
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -24,10 +24,12 @@ import org.opencv.core.Size;
 import org.opencv.highgui.HighGui;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+
 class FindContours {
     public FindContours() {
         // TODO Auto-generated constructor stub
     }
+
     private Mat srcGray = new Mat();
     private JFrame frame;
     private JLabel imgSrcLabel;
@@ -35,6 +37,7 @@ class FindContours {
     private static final int MAX_THRESHOLD = 255;
     private int threshold = 100;
     private Random rng = new Random(12345);
+
     public FindContours(String[] args) {
         String filename = args.length > 0 ? args[0] : "C:/Users/m.abdulaziz/Documents/Scanned Documents/Welcome Scan3.jpg";
         Mat src = Imgcodecs.imread(filename);
@@ -57,6 +60,7 @@ class FindContours {
         frame.setVisible(true);
         update();
     }
+
     private void addComponentsToPane(Container pane, Image img) {
         if (!(pane.getLayout() instanceof BorderLayout)) {
             pane.add(new JLabel("Container doesn't use BorderLayout!"));
@@ -89,6 +93,7 @@ class FindContours {
         imgPanel.add(imgSrcLabel);
         pane.add(imgPanel, BorderLayout.CENTER);
     }
+
     private void update() {
         Mat cannyOutput = new Mat();
         Imgproc.Canny(srcGray, cannyOutput, threshold, threshold * 2);
@@ -98,7 +103,7 @@ class FindContours {
         Mat drawing = Mat.zeros(cannyOutput.size(), CvType.CV_8UC3);
         for (int i = 0; i < contours.size(); i++) {
             Scalar color = new Scalar(rng.nextInt(256), rng.nextInt(256), rng.nextInt(256));
-            Imgproc.drawContours(drawing, contours, i, color, 2,Imgproc.LINE_8, hierarchy, 0, new Point());
+            Imgproc.drawContours(drawing, contours, i, color, 2, Imgproc.LINE_8, hierarchy, 0, new Point());
         }
         imgContoursLabel.setIcon(new ImageIcon(HighGui.toBufferedImage(drawing)));
         frame.repaint();

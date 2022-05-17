@@ -1,14 +1,9 @@
+package Utils;
 
-import java.awt.Color;
+import java.awt.*;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-public class Utils {
-    static String coloToHex(Color color) {
+public class Hex {
+    public  static String coloToHex(Color color) {
         String red = Integer.toHexString(color.getRed());
         String green = Integer.toHexString(color.getGreen());
         String blue = Integer.toHexString(color.getBlue());
@@ -28,4 +23,10 @@ public class Utils {
     }
 
 }
+
+
+
+
+
+
 
