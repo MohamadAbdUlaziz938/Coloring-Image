@@ -1,20 +1,15 @@
 import Buttons.ChooseImage;
 import Utils.Hex;
-import Utils.ResizeImage;
 import views.ImagesView;
 
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
-public class AppBar  {
-
+public class AppBar {
+    Color selectedColor;
     JComboBox<String> combo;
 
     JPanel panel;
@@ -23,19 +18,19 @@ public class AppBar  {
 
     public AppBar(ImagesView imagesView) {
 
-        chooseImage=new ChooseImage(imagesView);
+        chooseImage = new ChooseImage(imagesView);
         panel = new JPanel(new GridLayout(1, 2, 10, 10));
         combo = new JComboBox<>();
         initCombo();
-        createFooter();
+        createAppBar();
     }
 
-    void createFooter() {
-        final  JComboBox colorsGroup;
+    void createAppBar() {
+        final JComboBox colorsGroup;
         colorsGroup = combo;
         JPanel colorsPanel = new JPanel(new GridLayout(1, 1, 5, 5));
 
-        final  JLabel title=new JLabel("Choose color:");
+        final JLabel title = new JLabel("Choose color:");
         title.setForeground(Color.white);
         title.setFont(new Font(title.getFont().getName(), Font.BOLD, 20));
         colorsPanel.setBackground(Color.black);
@@ -44,7 +39,6 @@ public class AppBar  {
 
         colorsPanel.add(title);
         colorsPanel.add(colorsGroup);
-
 
 
         panel.add(colorsPanel);
@@ -59,19 +53,15 @@ public class AppBar  {
     }
 
     void initCombo() {
+        final HashMap<String, Color> color_name = Hex.getColors();
 
-        Color[] colors = {Color.red, Color.green, Color.BLUE};
-        ArrayList<String> model = new ArrayList<>();
-        final HashMap<String, Color> map = new HashMap<String, Color>();
-
-        combo.setFont(Font.decode("Dialog"));
-        for (int i = 0; i < colors.length; i++) {
-            model.add(Hex.coloToHex(colors[i]));
-            map.put(model.get(i), colors[i]);
-            combo.addItem(model.get(i));
+        combo.setFont(new Font(combo.getFont().getName(), Font.BOLD, 20));
+        String[] model = color_name.keySet().toArray(new String[0]);
+        for (int i = 0; i < model.length; i++) {
+            combo.addItem(model[i]);
 
         }
-
+        selectedColor = color_name.get("red");
         combo.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(
@@ -79,10 +69,10 @@ public class AppBar  {
                     boolean isSelected, boolean hasFocus) {
                 JLabel l = (JLabel) super.getListCellRendererComponent(
                         list, value, index, isSelected, hasFocus);
-                l.setBackground(map.get(value));
-                l.setForeground(map.get(value));
+                l.setBackground(color_name.get(value));
+                l.setForeground(color_name.get(value));
                 if (isSelected) {
-
+                    selectedColor = color_name.get(value);
                 }
                 return l;
             }
