@@ -8,9 +8,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
@@ -30,10 +28,11 @@ import javax.swing.border.TitledBorder;
 /**
  * @author m.abdulaziz
  */
-public class Footer extends JPanel implements ActionListener {
+public class Footer extends JPanel {
 
     JComboBox<String> combo;
     JPanel panel;
+    Color selectedColor;
 
     public Footer() {
         panel = new JPanel(new GridLayout(2, 2, 10, 10));
@@ -69,19 +68,15 @@ public class Footer extends JPanel implements ActionListener {
     }
 
     void initCombo() {
+        final HashMap<String, Color> color_name = Hex.getColors();
 
-        Color[] colors = {Color.red, Color.green, Color.BLUE};
-        ArrayList<String> model = new ArrayList<>();
-        final HashMap<String, Color> map = new HashMap<String, Color>();
-
-        combo.setFont(Font.decode("Dialog"));
-        for (int i = 0; i < colors.length; i++) {
-            model.add(Hex.coloToHex(colors[i]));
-            map.put(model.get(i), colors[i]);
-            combo.addItem(model.get(i));
+        combo.setFont(new Font(combo.getFont().getName(), Font.BOLD, 20));
+        String[] model = color_name.keySet().toArray(new String[0]);
+        for (int i = 0; i < model.length; i++) {
+            combo.addItem(model[i]);
 
         }
-
+        selectedColor = color_name.get("red");
         combo.setRenderer(new DefaultListCellRenderer() {
             @Override
             public Component getListCellRendererComponent(
@@ -89,10 +84,10 @@ public class Footer extends JPanel implements ActionListener {
                     boolean isSelected, boolean hasFocus) {
                 JLabel l = (JLabel) super.getListCellRendererComponent(
                         list, value, index, isSelected, hasFocus);
-                l.setBackground(map.get(value));
-                l.setForeground(map.get(value));
+                l.setBackground(color_name.get(value));
+                l.setForeground(color_name.get(value));
                 if (isSelected) {
-
+                    selectedColor = color_name.get(value);
                 }
                 return l;
             }
@@ -100,9 +95,5 @@ public class Footer extends JPanel implements ActionListener {
 
     }
 
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-
-    }
 
 }

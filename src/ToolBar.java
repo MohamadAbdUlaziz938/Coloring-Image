@@ -1,12 +1,11 @@
 
+import Utils.ResizeImage;
+
 import java.awt.Font;
-import java.io.*;
 import javax.swing.*;
 import java.awt.event.*;
-import static java.rmi.Naming.list;
 import java.util.ArrayList;
 import java.util.Arrays;
-import static java.util.Collections.list;
 import java.util.List;
 
 import javax.swing.filechooser.*;
