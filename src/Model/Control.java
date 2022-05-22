@@ -6,5 +6,5 @@ import java.util.ArrayList;
 public class Control {
     public  static BufferedImage thisChoosImage;
     public  static boolean [][] thisChoosImageVisit;
-    public  static ArrayList<Click> State = new ArrayList<>();
+    public  static ArrayList<Click> States ;
 }

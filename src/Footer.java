@@ -1,5 +1,6 @@
 import Buttons.ColoringButton;
 import Buttons.SaveButton;
+import views.ImagesView;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,10 +24,11 @@ public class Footer extends JPanel implements ActionListener {
     SaveButton saveButton;
     ColoringButton coloringButton;
 
-    public Footer() {
+
+    public Footer(ImagesView imagesView ) {
         panel = new JPanel(new GridLayout(1, 2, 300, 10));
         saveButton = new SaveButton();
-        coloringButton = new ColoringButton();
+        coloringButton = new ColoringButton(imagesView);
 
 
         createFooter();

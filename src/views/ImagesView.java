@@ -15,7 +15,7 @@ public class ImagesView extends JPanel {
     public  JPanel imagesView;
     String defUrl;
     public  JLabel greyImagePanel = new JLabel();
-    JLabel coloredImagePanel = new JLabel();
+    public JLabel coloredImagePanel = new JLabel();
 
     public ImagesView(String defUrl) {
 

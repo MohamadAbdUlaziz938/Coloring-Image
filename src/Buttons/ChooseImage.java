@@ -1,6 +1,7 @@
 package Buttons;
 
 
+import Model.Click;
 import Model.Control;
 import Utils.ResizeImage;
 
@@ -16,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ChooseImage extends  JButton implements ActionListener {
     public JButton chooseImage;
@@ -39,11 +41,18 @@ public class ChooseImage extends  JButton implements ActionListener {
         j.addChoosableFileFilter(filter);
         int r = j.showOpenDialog(null);
         if (r == JFileChooser.APPROVE_OPTION) {
-            System.out.print(this.imagesView.greyImagePanel.getWidth());
-            System.out.print(this.imagesView.greyImagePanel.getHeight());
+            Control.States = new ArrayList<>();
+
             this.imagesView.greyImagePanel.setIcon(ResizeImage.resize(j.getSelectedFile().getAbsolutePath(), this.imagesView.greyImagePanel.getWidth(), this.imagesView.greyImagePanel.getHeight()));
+            this.imagesView.coloredImagePanel.setIcon(ResizeImage.resize(j.getSelectedFile().getAbsolutePath(), this.imagesView.greyImagePanel.getWidth(), this.imagesView.greyImagePanel.getHeight()));
             Control.thisChoosImage = writeImageOut(j.getSelectedFile().getAbsolutePath(), this.imagesView.greyImagePanel.getWidth(), this.imagesView.greyImagePanel.getHeight());
             Control.thisChoosImageVisit = new boolean[this.imagesView.greyImagePanel.getWidth()][this.imagesView.greyImagePanel.getHeight()];
+            Click initClick = new Click(-1,-1,Color.BLACK);
+            initClick.currentColorBuffer = Control.thisChoosImage;
+            initClick.currentGrayBuffer = this.imagesView.greyImagePanel.getIcon();
+            Control.States.add(initClick);
+            Control.States.add(initClick);
+            Control.States.add(initClick);
         }
     }
     public BufferedImage writeImageOut(String path, int W, int H) {

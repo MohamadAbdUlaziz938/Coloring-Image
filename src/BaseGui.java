@@ -1,4 +1,4 @@
-import Algorithem.DFS;
+import Algorithem.BFS;
 import Model.Click;
 import Model.Control;
 import views.ImagesView;
@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -35,34 +36,16 @@ public class BaseGui extends JPanel {
                     g.drawLine(e.getX() + c, e.getY(), e.getX() + 7 + c, e.getY() + 7);
                 }
 
-
-                Click temp = new Click(e.getX() - 10, e.getY(), appBar.selectedColor, Control.thisChoosImage);
-                Control.State.add(temp);
-
-                /*int RGBA = Control.thisChoosImage.getRGB(307,223);
-                System.out.println(RGBA);
-                RGBA = Control.thisChoosImage.getRGB(308,223);
-                System.out.println(RGBA);*/
+                Control.thisChoosImageVisit = new boolean[imagesView.greyImagePanel.getWidth()][imagesView.greyImagePanel.getHeight()];
 
 
-                System.out.println("Play !!!");
-                new DFS(temp);
-                try {
-                    ImageIO.write(Control.thisChoosImage, "jpg", new File("out.jpg"));
-                    System.out.println("End !!!");
-
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
+                Click temp = new Click(e.getX() - 10, e.getY(), appBar.selectedColor);
 
 
+                System.out.println("Play Coloring !!!");
+                new BFS(temp);
 
-
-                /*int RGBA = ChooseImage.thisChoosImage.getRGB(e.getX()-10,e.getY());
-                int red = (RGBA >> 16) & 255;
-                int green = (RGBA >> 8) & 255;
-                int blue = RGBA & 255;
-                System.out.println(red +"   "+ green +"   "+ blue);*/
+                System.out.println("End Coloring !!!");
 
 
             }
@@ -88,7 +71,7 @@ public class BaseGui extends JPanel {
 
             }
         });
-        footer = new Footer();
+        footer = new Footer(this.imagesView);
 
 
         borderLayout = new JPanel();

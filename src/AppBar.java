@@ -40,11 +40,11 @@ public class AppBar {
         colorsPanel.add(title);
         colorsPanel.add(colorsGroup);
 
-
+        panel.add(chooseImage.chooseImage);
         panel.add(colorsPanel);
 
 
-        panel.add(chooseImage.chooseImage);
+
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(Color.black);
 
@@ -73,6 +73,7 @@ public class AppBar {
                 l.setForeground(color_name.get(value));
                 if (isSelected) {
                     selectedColor = color_name.get(value);
+
                 }
                 return l;
             }
