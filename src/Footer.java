@@ -1,4 +1,8 @@
 import Utils.Hex;
+import buttons.Coloring;
+import buttons.Initialize;
+import buttons.Next;
+import buttons.Previous;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -32,7 +36,7 @@ public class Footer extends JPanel implements ActionListener {
     JPanel panel;
 
     public Footer() {
-        panel = new JPanel(new GridLayout(1, 0, 10, 10));
+        panel = new JPanel(new GridLayout(2, 2, 10, 10));
         combo = new JComboBox<>();
         initCombo();
         createFooter();
@@ -48,16 +52,20 @@ public class Footer extends JPanel implements ActionListener {
         colorsGroup = combo;
         colorsPanel.add(colorsGroup);
 
-        panel.add(colorsPanel);
 
-        JButton reset = new JButton("Coloring");
-        reset.setBackground(Color.BLACK);
-        reset.setFont(new Font(reset.getFont().getName(), Font.BOLD, 20));
-        reset.setForeground(Color.white);
-        reset.addActionListener(this);
-        panel.add(reset);
+        final Coloring coloring = new Coloring();
+        final Next next = new Next();
+        final Previous previous = new Previous();
+        final Initialize initialize = new Initialize();
+
+        panel.add(next.nextButton);
+        panel.add(previous.prevButton);
+        panel.add(initialize.initButton);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(Color.white);
+        panel.add(colorsPanel);
+        panel.add(coloring.colorButton);
+
     }
 
     void initCombo() {

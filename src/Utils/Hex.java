@@ -3,7 +3,7 @@ package Utils;
 import java.awt.*;
 
 public class Hex {
-    public  static String coloToHex(Color color) {
+    public static String coloToHex(Color color) {
         String red = Integer.toHexString(color.getRed());
         String green = Integer.toHexString(color.getGreen());
         String blue = Integer.toHexString(color.getBlue());
