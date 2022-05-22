@@ -64,7 +64,7 @@ public class Footer extends JPanel implements ActionListener {
         panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         panel.setBackground(Color.white);
         panel.add(colorsPanel);
-        panel.add(coloring.colorButton);
+//        panel.add(coloring.colorButton);
 
     }
 
