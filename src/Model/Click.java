@@ -9,6 +9,7 @@ public class Click {
     public int y;
     public Color color;
     public Icon currentGrayBuffer;
+    public Icon currentColoredBuffer;
     public BufferedImage currentColorBuffer;
     public  boolean isActive =false;
 

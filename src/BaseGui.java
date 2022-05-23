@@ -16,12 +16,14 @@ public class BaseGui extends JPanel {
 
     public ImagesView imagesView;
     Footer footer;
+    ColorsList colorsList;
     JPanel borderLayout;
 
     public BaseGui() {
 
         imagesView = new ImagesView(getClass().getResource("default-image.jpg").getPath());
         AppBar appBar = new AppBar(imagesView);
+        colorsList = new ColorsList();
         imagesView.getGreyImagePanel().addMouseListener(new MouseListener() {
 
 
@@ -32,14 +34,14 @@ public class BaseGui extends JPanel {
 
                 final Graphics g = imagesView.getGreyImagePanel().getGraphics();
                 for (int c = 0; c < 5; c++) {
-                    g.setColor(appBar.selectedColor);
+                    g.setColor(colorsList.selectedColor);
                     g.drawLine(e.getX() + c, e.getY(), e.getX() + 7 + c, e.getY() + 7);
                 }
 
                 Control.thisChoosImageVisit = new boolean[imagesView.greyImagePanel.getWidth()][imagesView.greyImagePanel.getHeight()];
 
 
-                Click temp = new Click(e.getX() - 10, e.getY(), appBar.selectedColor);
+                Click temp = new Click(e.getX() - 10, e.getY(), colorsList.selectedColor);
 
 
                 System.out.println("Play Coloring !!!");
@@ -71,11 +73,11 @@ public class BaseGui extends JPanel {
 
             }
         });
-        footer = new Footer(this.imagesView);
+        footer = new Footer(this.imagesView, colorsList.colorsPanel);
 
 
         borderLayout = new JPanel();
-        borderLayout.setPreferredSize(new Dimension(900, 600));
+        borderLayout.setPreferredSize(new Dimension(900, 650));
         borderLayout.setBackground(Color.black);
 
 

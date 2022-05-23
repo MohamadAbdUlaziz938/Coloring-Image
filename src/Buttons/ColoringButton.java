@@ -24,7 +24,6 @@ public class ColoringButton implements ActionListener {
         coloringButton.setBackground(Color.blue);
         coloringButton.setFont(new Font(coloringButton.getFont().getName(), Font.BOLD, 20));
         coloringButton.setForeground(Color.white);
-        coloringButton.addActionListener(this);
         coloringButton.setPreferredSize(new Dimension(150, 60));
     }
 
@@ -34,11 +33,10 @@ public class ColoringButton implements ActionListener {
         Click temp = new Click(-1, -1, Color.BLACK);
         temp.currentColorBuffer = Control.thisChoosImage;
         temp.currentGrayBuffer = this.imagesView.greyImagePanel.getIcon();
-        Control.States.add(1,Control.States.get(2));
-        Control.States.add(2,temp);
-        this.imagesView.greyImagePanel.setIcon(Control.States.get(2).currentGrayBuffer);
-        ImageIcon image = new ImageIcon(Control.States.get(2).currentColorBuffer);
-        this.imagesView.coloredImagePanel.setIcon(image);
+        Control.States.add(1, Control.States.get(2));
+        Control.States.add(2, temp);
+        this.imagesView.greyImagePanel.setIcon(temp.currentGrayBuffer);
+        this.imagesView.coloredImagePanel.setIcon(new ImageIcon(temp.currentColorBuffer));
 
     }
 }
