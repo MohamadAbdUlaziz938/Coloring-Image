@@ -16,6 +16,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,24 +49,45 @@ public class ChooseImage extends JButton implements ActionListener {
         if (r == JFileChooser.APPROVE_OPTION) {
             Control.States = new ArrayList<>();
 
-            this.imagesView.greyImagePanel.setIcon(ResizeImage.resize(j.getSelectedFile().getAbsolutePath(), this.imagesView.greyImagePanel.getWidth(), this.imagesView.greyImagePanel.getHeight()));
-            this.imagesView.coloredImagePanel.setIcon(ResizeImage.resize(j.getSelectedFile().getAbsolutePath(), this.imagesView.greyImagePanel.getWidth(), this.imagesView.greyImagePanel.getHeight()));
             Control.thisChoosImage = writeImageOut(j.getSelectedFile().getAbsolutePath(), this.imagesView.greyImagePanel.getWidth(), this.imagesView.greyImagePanel.getHeight());
+
+
             Control.thisChoosImageVisit = new boolean[this.imagesView.greyImagePanel.getWidth()][this.imagesView.greyImagePanel.getHeight()];
+
+            final ImageIcon grayImageIcon = new ImageIcon(Control.thisChoosImage);
+            final ImageIcon colorImageIcon = new ImageIcon(Control.thisChoosImage);
+            this.imagesView.greyImagePanel.setIcon(grayImageIcon);
+            this.imagesView.coloredImagePanel.setIcon(colorImageIcon);
+
+            //////////////////
             Click initClick1 = new Click(-1, -1, Color.BLACK);
-            Click initClick2 = new Click(-1, -1, Color.BLACK);
-            Click initClick3 = new Click(-1, -1, Color.BLACK);
-            initClick1.currentColorBuffer = Control.thisChoosImage;
-            initClick1.currentColoredBuffer = this.imagesView.coloredImagePanel.getIcon();
-            initClick1.currentGrayBuffer = this.imagesView.greyImagePanel.getIcon();
-            initClick2.currentColorBuffer = Control.thisChoosImage;
-            initClick2.currentGrayBuffer = this.imagesView.greyImagePanel.getIcon();
-            initClick3.currentColorBuffer = Control.thisChoosImage;
-            initClick3.currentGrayBuffer = this.imagesView.greyImagePanel.getIcon();
+
+            initClick1.grayBuffer = deepCopy(Control.thisChoosImage);
+            initClick1.coloredBuffer = deepCopy(Control.thisChoosImage);
             Control.States.add(initClick1);
+            Click initClick2 = new Click(-1, -1, Color.BLACK);
+            initClick2.grayBuffer = deepCopy(Control.thisChoosImage);
+            initClick2.coloredBuffer = deepCopy(Control.thisChoosImage);
             Control.States.add(initClick2);
+            Click initClick3 = new Click(-1, -1, Color.BLACK);
+            initClick3.grayBuffer = deepCopy(Control.thisChoosImage);
+            initClick3.coloredBuffer = deepCopy(Control.thisChoosImage);
             Control.States.add(initClick3);
+            Click initClick4 = new Click(-1, -1, Color.BLACK);
+            initClick4.grayBuffer = deepCopy(Control.thisChoosImage);
+            initClick4.coloredBuffer = deepCopy(Control.thisChoosImage);
+            initClick4.graphics = initClick4.grayBuffer.getGraphics();
+            Control.States.add(initClick4);
+            Control.currentState=initClick1;
+
         }
+    }
+
+    static BufferedImage deepCopy(BufferedImage bi) {
+        ColorModel cm = bi.getColorModel();
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        WritableRaster raster = bi.copyData(null);
+        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
 
     public BufferedImage writeImageOut(String path, int W, int H) {
@@ -87,5 +110,11 @@ public class ChooseImage extends JButton implements ActionListener {
         g.dispose();
 
         return img;
+    }
+    public  static Click copyClick(Click click){
+        final Click initClick = new Click(-1, -1, click.color);
+        initClick.grayBuffer = ChooseImage.deepCopy(click.grayBuffer);
+        initClick.coloredBuffer = ChooseImage.deepCopy(click.coloredBuffer);
+        return  initClick;
     }
 }

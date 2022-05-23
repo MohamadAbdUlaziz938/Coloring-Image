@@ -1,5 +1,9 @@
 package Buttons;
 
+import Model.Click;
+import Model.Control;
+import views.ImagesView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,8 +11,9 @@ import java.awt.event.ActionListener;
 
 public class NextButton implements ActionListener {
     public JButton nextButton;
-
-    public NextButton() {
+    ImagesView imagesView;
+    public NextButton(ImagesView imagesView) {
+        this.imagesView=imagesView;
         createNextButton();
     }
 
@@ -22,6 +27,14 @@ public class NextButton implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        System.out.println("next");
+        Click temp = Control.States.get(2);
+//        Click prevClick = new Click(temp.x, temp.y, temp.color);
+//        prevClick.coloredBuffer =ChooseImage.deepCopy(temp.coloredBuffer);
+//        prevClick.grayBuffer = ChooseImage.deepCopy(temp.grayBuffer);
+        Control.States.set(3, ChooseImage.copyClick(temp));
+        Control.currentState=temp;
+        this.imagesView.greyImagePanel.setIcon(new ImageIcon(temp.grayBuffer));
+        this.imagesView.coloredImagePanel.setIcon(new ImageIcon(temp.coloredBuffer));
     }
 }

@@ -1,4 +1,5 @@
 import Buttons.*;
+import Model.Control;
 import views.ImagesView;
 
 import java.awt.*;
@@ -35,8 +36,8 @@ public class Footer extends JPanel implements ActionListener {
     void createFooter() {
         JComboBox colorsGroup;
         final InitializeButton initializeButton = new InitializeButton(this.imagesView);
-        final NextButton nextButton = new NextButton();
-        final PreviousButton previousButton = new PreviousButton();
+        final NextButton nextButton = new NextButton(this.imagesView);
+        final PreviousButton previousButton = new PreviousButton(this.imagesView);
         panel.add(colorList);
         panel.add(coloringButton.coloringButton);
         panel.add(saveButton.saveButton);

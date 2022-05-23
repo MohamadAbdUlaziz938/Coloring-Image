@@ -31,10 +31,14 @@ public class InitializeButton implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         System.out.println("ini");
-        final Click initClick = Control.States.get(0);
-        this.imagesView.greyImagePanel.setIcon(initClick.currentGrayBuffer);
+        final Click temp = Control.States.get(0);
+        Control.States.set(1, ChooseImage.copyClick(temp));
+        Control.States.set(2, ChooseImage.copyClick(temp));
+        Control.States.set(3, ChooseImage.copyClick(temp));
+        Control.currentState = temp;
+        this.imagesView.greyImagePanel.setIcon(new ImageIcon(temp.grayBuffer));
 
-        this.imagesView.coloredImagePanel.setIcon(initClick.currentColoredBuffer);
+        this.imagesView.coloredImagePanel.setIcon(new ImageIcon(temp.coloredBuffer));
 
     }
 }

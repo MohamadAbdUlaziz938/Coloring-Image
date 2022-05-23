@@ -32,20 +32,27 @@ public class BaseGui extends JPanel {
                 System.out.println("mouse X :" + e.getX());
                 System.out.println("mouse Y :" + e.getY());
 
-                final Graphics g = imagesView.getGreyImagePanel().getGraphics();
+                Control.currentState = Control.States.get(3);
+
+                Graphics g = Control.currentState.grayBuffer.getGraphics();
                 for (int c = 0; c < 5; c++) {
                     g.setColor(colorsList.selectedColor);
-                    g.drawLine(e.getX() + c, e.getY(), e.getX() + 7 + c, e.getY() + 7);
+                    g.drawLine(e.getX() - 10 + c, e.getY(), e.getX() + 7 + c, e.getY() + 7);
                 }
 
                 Control.thisChoosImageVisit = new boolean[imagesView.greyImagePanel.getWidth()][imagesView.greyImagePanel.getHeight()];
 
 
-                Click temp = new Click(e.getX() - 10, e.getY(), colorsList.selectedColor);
-
+                Control.currentState.color = colorsList.selectedColor;
 
                 System.out.println("Play Coloring !!!");
-                new BFS(temp);
+                Control.currentState.x = e.getX();
+                Control.currentState.y = e.getY();
+                new BFS(Control.currentState);
+
+
+                imagesView.greyImagePanel.setIcon(new ImageIcon(Control.currentState.grayBuffer));
+//                Control.currentState.graphics = Control.currentState.grayBuffer.getGraphics();
 
                 System.out.println("End Coloring !!!");
 
